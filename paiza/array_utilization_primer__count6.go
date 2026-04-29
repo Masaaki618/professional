@@ -1,0 +1,34 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+)
+
+var (
+	r = bufio.NewReader(os.Stdin)
+	w = bufio.NewWriter(os.Stdout)
+)
+
+func main() {
+	defer w.Flush()
+	var x, y int
+	fmt.Fscan(r, &x, &y)
+
+	arr := make([]int, x)
+
+	for i := 0; i < x; i++ {
+		fmt.Fscan(r, &arr[i])
+	}
+
+	found := -1
+	for i, v := range arr {
+		if v == y {
+			found = i + 1
+			break
+		}
+	}
+
+	fmt.Fprintln(w, found)
+}
