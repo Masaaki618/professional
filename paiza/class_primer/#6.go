@@ -16,8 +16,8 @@ type employee struct {
 	name   string
 }
 
-func NewEmployee(number int, name string) employee {
-	return employee{number: number, name: name}
+func NewEmployee(number int, name string) *employee {
+	return &employee{number: number, name: name}
 }
 
 func (e employee) getname() string {
@@ -28,13 +28,21 @@ func (e employee) getnum() int {
 	return e.number
 }
 
+func (e *employee) change_num(number int) {
+	e.number = number
+}
+
+func (e *employee) change_name(name string) {
+	e.name = name
+}
+
 func main() {
 	defer w.Flush()
 	var x int
 	employeeCount := 0
 
 	fmt.Fscan(r, &x)
-	employeeMap := make(map[int]employee)
+	employeeMap := make(map[int]*employee)
 
 	for i := 1; i <= x; i++ {
 		var y string
@@ -57,6 +65,17 @@ func main() {
 			fmt.Fscan(r, &z)
 			user := employeeMap[z]
 			fmt.Fprintln(w, user.getnum())
+		case "change_name":
+			var userId int
+			var newname string
+			fmt.Fscan(r, &userId, &newname)
+			user := employeeMap[userId]
+			user.change_name(newname)
+		case "change_num":
+			var userId, newnum int
+			fmt.Fscan(r, &userId, &newnum)
+			user := employeeMap[userId]
+			user.change_num(newnum)
 		}
 	}
 
