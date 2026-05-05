@@ -36,16 +36,24 @@ func main() {
 	}
 
 	for i := 0; i < y; i++ {
-		var userId, price int
+		var userId int
 		var menuName string
-		fmt.Fscan(r, &userId, &menuName, &price)
+		fmt.Fscan(r, &userId, &menuName)
 		user := userList[userId-1]
 		switch menuName {
+		case "0":
+			user.beer()
 		case "food":
+			var price int
+			fmt.Fscan(r, &price)
 			user.food(price)
 		case "alcohol":
+			var price int
+			fmt.Fscan(r, &price)
 			user.alcohol(price)
 		case "softdrink":
+			var price int
+			fmt.Fscan(r, &price)
 			user.softdrink(price)
 		}
 	}
@@ -72,4 +80,8 @@ func (o *orderUser) alcohol(price int) {
 		o.totalPrice += price
 		o.hasOrderedAlcohol = true
 	}
+}
+
+func (o *orderUser) beer() {
+	o.alcohol(500)
 }
