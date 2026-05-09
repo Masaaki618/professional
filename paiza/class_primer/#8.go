@@ -30,8 +30,6 @@ func main() {
 		points[i] = Point{alpha, road1, road2}
 	}
 
-	fmt.Fprintln(w, points)
-
 	current := S
 	fmt.Fprintf(w, points[current].alpha)
 
