@@ -15,11 +15,13 @@ type orderUser struct {
 	age               int
 	totalPrice        int
 	hasOrderedAlcohol bool
+	isCheckedOut      bool
 }
 
 func NewOrderUser(age int) *orderUser {
 	return &orderUser{
-		age: age,
+		age:          age,
+		isCheckedOut: false,
 	}
 }
 
@@ -43,6 +45,9 @@ func main() {
 		switch menuName {
 		case "0":
 			user.beer()
+		case "A":
+			user.checkdOut()
+			fmt.Fprintln(w, user.getTotalPrice())
 		case "food":
 			var price int
 			fmt.Fscan(r, &price)
@@ -58,9 +63,14 @@ func main() {
 		}
 	}
 
+	var checkedOutTotalCount int
 	for _, v := range userList {
-		fmt.Fprintln(w, v.totalPrice)
+		if v.isCheckedOut {
+			checkedOutTotalCount++
+		}
 	}
+
+	fmt.Fprintln(w, checkedOutTotalCount)
 }
 
 func (o *orderUser) food(price int) {
@@ -84,4 +94,12 @@ func (o *orderUser) alcohol(price int) {
 
 func (o *orderUser) beer() {
 	o.alcohol(500)
+}
+
+func (o *orderUser) checkdOut() {
+	o.isCheckedOut = true
+}
+
+func (o *orderUser) getTotalPrice() int {
+	return o.totalPrice
 }
