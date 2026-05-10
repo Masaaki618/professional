@@ -19,16 +19,15 @@ type timelineAuthor struct {
 
 func main() {
 	defer w.Flush()
-	var x, y int
+	var skipCount, authorCount int
 	var timelineAuthorList []timelineAuthor
-	fmt.Fscan(r, &x, &y)
-	// 特にこのパートは何もしない
-	for i := 0; i < x; i++ {
-		var name string
-		fmt.Fscan(r, &name)
+	fmt.Fscan(r, &skipCount, &authorCount)
+	var dummy string
+	for i := 0; i < skipCount; i++ {
+		fmt.Fscan(r, &dummy)
 	}
 
-	for i := 0; i < y; i++ {
+	for i := 0; i < authorCount; i++ {
 		var t timelineAuthor
 		fmt.Fscan(r, &t.year, &t.name)
 		timelineAuthorList = append(timelineAuthorList, t)
