@@ -15,22 +15,16 @@ func main() {
 	defer w.Flush()
 	var x, y int
 	fmt.Fscan(r, &x, &y)
-	arr := make([]int, x)
-	for i := 0; i < x; i++ {
-		var x int
-		fmt.Fscan(r, &x)
-		arr[i] = x
+	result := make([]int, x+1)
+	for i := 1; i <= x; i++ {
+		var num int
+		fmt.Fscan(r, &num)
+		result[i] = result[i-1] + num
 	}
 
-	prefix := make([]int, len(arr)+1)
-	for i, v := range arr {
-		prefix[i+1] = prefix[i] + v
-	}
-
-	// クエリはO(1)で答えられる
 	for i := 0; i < y; i++ {
-		var x int
-		fmt.Fscan(r, &x)
-		fmt.Fprintln(w, prefix[x])
+		var num int
+		fmt.Fscan(r, &num)
+		fmt.Fprintln(w, result[num])
 	}
 }
